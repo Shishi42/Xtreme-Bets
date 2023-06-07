@@ -1,0 +1,26 @@
+{
+  "name": "inazuma-bet",
+  "version": "1.0.0",
+  "description": "A Discord bot to bet on Inazuma Eleven matches",
+  "main": "bet.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bot",
+    "discord",
+    "bet",
+    "inazuma",
+    "eleven"
+  ],
+  "author": "Shishi",
+  "license": "MIT",
+  "dependencies": {
+    "cron": "^2.3.1",
+    "discord.js": "^14.11.0",
+    "fs": "^0.0.1-security",
+    "jsonfile": "^6.1.0",
+    "sequelize": "^6.32.0",
+    "sqlite3": "^5.1.6"
+  }
+}
