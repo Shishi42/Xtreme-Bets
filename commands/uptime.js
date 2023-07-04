@@ -4,7 +4,7 @@ module.exports = {
 
   name: "uptime",
   description: "Show BOT uptime",
-  permission: null,
+  permission: Discord.PermissionFlagsBits.Administrator,
   dm: true,
   category: "Utility",
 

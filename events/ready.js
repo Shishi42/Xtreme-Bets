@@ -73,47 +73,36 @@ module.exports = async bot => {
       primaryKey: true,
       unique: true,
     },
-    role_id: {
+    team_alias: {
       type: Sequelize.STRING,
       allowNull: false,
       unique: true,
     },
-    country: {
+  })
+
+  bot.Players = bot.db.define('player', {
+    player_id: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      primaryKey: true,
+      unique: true,
+    },
+    player_alias: {
       type: Sequelize.STRING,
       allowNull: false,
       unique: true,
     },
-    name: {
-      type: Sequelize.STRING,
-      unique: true,
-    },
-    flag: {
+    player_team: {
       type: Sequelize.STRING,
       allowNull: false,
-      unique: true,
     },
-    captain: {
-      type: Sequelize.STRING,
-      unique: true,
-    },
-    member_2: {
-      type: Sequelize.STRING,
-      unique: true,
-    },
-    member_3: {
-      type: Sequelize.STRING,
-      unique: true,
-    },
-    member_4: {
-      type: Sequelize.STRING,
-      unique: true,
-    }
   })
 
   bot.Matches.sync()
   bot.Bets.sync()
   bot.Members.sync()
   bot.Teams.sync()
+  bot.Players.sync()
 
   console.log(`Database online`)
 

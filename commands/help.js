@@ -3,15 +3,15 @@ const Discord = require("discord.js")
 module.exports = {
 
   name: "help",
-  description: "Affiche le menu d'aide",
-  permission: null,
+  description: "Show help menu",
+  permission: Discord.PermissionFlagsBits.Administrator,
   dm: true,
-  category: "Utilitaire",
+  category: "Utility",
   options: [
     {
       type: "string",
-      name: "commande",
-      description: "La commande à afficher",
+      name: "command",
+      description: "Command to show",
       required: false,
       autocomplete: true,
     }
@@ -20,9 +20,9 @@ module.exports = {
   async run(bot, message, args) {
 
     let command
-    if(args.get("commande")){
-      command = bot.commands.get(args.get("commande").value)
-      if(!command) return message.reply("Pas de commande à ce nom")
+    if(args.get("command")){
+      command = bot.commands.get(args.get("command").value)
+      if(!command) return message.reply("No command with this name")
     }
 
     if(!command){
@@ -34,10 +34,10 @@ module.exports = {
 
       let embed = new Discord.EmbedBuilder()
       .setColor(bot.color)
-      .setTitle("Commandes du bot")
+      .setTitle("Bot Commands")
       .setThumbnail(bot.user.displayAvatarURL({dynamic: true}))
-      .setDescription(`Commandes disponibles : \`${bot.commands.size}\` \nCatégories disponibles : \`${categories.length}\``)
-      .setFooter({text: 'a BOT by @shishi4272', iconURL: 'https://www.iconpacks.net/icons/2/free-twitter-logo-icon-2429-thumb.png'})
+      .setDescription(`Available Commands: \`${bot.commands.size}\` \nAvailable Categories : \`${categories.length}\``)
+      .setFooter({text: 'a Strikers World Cup 2023 Official Bot', iconURL: 'https://pbs.twimg.com/profile_images/1662212462110810115/M0CLudSr_400x400.jpg'})
       .setTimestamp()
 
       await categories.sort().forEach(async cat => {
@@ -51,11 +51,11 @@ module.exports = {
 
       let embed = new Discord.EmbedBuilder()
       .setColor(bot.color)
-      .setTitle(`Commande **${command.name}**`)
+      .setTitle(`Command **${command.name}**`)
       .setThumbnail(bot.user.displayAvatarURL({dynamic: true}))
-      .setDescription(`Nom : \`${command.name}\` \nDescription : \`${command.description}\` \nPermission requise : \`${typeof command.permission !== "bigint" ? command.permission !== null ? command.permission : "Aucune" : new Discord.PermissionsBitField(command.permission).toArray(false)}\` \nCommande en DM : \`${command.dm ? "Oui" : "Non"}\` \nCatégorie : \`${command.category}\``)
+      .setDescription(`Name : \`${command.name}\` \nDescription : \`${command.description}\` \nRequired Permission : \`${typeof command.permission !== "bigint" ? command.permission !== null ? command.permission : "None" : new Discord.PermissionsBitField(command.permission).toArray(false)}\` \nCommand in DM : \`${command.dm ? "Yes" : "No"}\` \nCategory : \`${command.category}\``)
       .setTimestamp()
-      .setFooter({text: 'a BOT by @shishi4272', iconURL: 'https://www.iconpacks.net/icons/2/free-twitter-logo-icon-2429-thumb.png'})
+      .setFooter({text: 'a Strikers World Cup 2023 Official Bot', iconURL: 'https://pbs.twimg.com/profile_images/1662212462110810115/M0CLudSr_400x400.jpg'})
 
       await message.reply({embeds: [embed]})
     }

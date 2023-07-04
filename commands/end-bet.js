@@ -4,7 +4,7 @@ module.exports = {
 
   name: "nom",
   description: "description",
-  permission: null,
+  permission: Discord.PermissionFlagsBits.Administrator,
   dm: true,
   category: "catégorie",
   options: [

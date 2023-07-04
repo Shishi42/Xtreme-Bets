@@ -9,6 +9,7 @@ bot.commands = new Discord.Collection()
 
 bot.color = config.bot_color
 bot.owner = config.bot_owner
+bot.wc = config.wc_server
 
 commands_loader(bot)
 events_loader(bot)

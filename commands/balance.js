@@ -2,22 +2,17 @@ const Discord = require("discord.js")
 
 module.exports = {
 
-  name: "nom",
-  description: "description",
-  permission: null,
+  name: "balance",
+  description: "Check your balance",
+  permission: Discord.PermissionFlagsBits.Administrator,
   dm: true,
-  category: "catégorie",
-  options: [
-    {
-      type: "string",
-      name: "exemple",
-      description: "description de l'option",
-      required: false,
-      autocomplete: false,
-    }
-  ],
+  category: "Balance",
 
   async run(bot, message, args) {
-    message.reply("Exemple")
+
+    let member = await bot.Members.findOne({ where: { member_id: message.member.id }})
+
+    if(member === null) message.reply({content: `You have 0 points.`, ephemeral: true})
+    else message.reply({content: `You have ${member.balance} points.`, ephemeral: true})
   }
 }
