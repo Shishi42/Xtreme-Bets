@@ -15,7 +15,8 @@ module.exports = {
 
     let embed = new Discord.EmbedBuilder()
     .setColor(bot.color)
-    .setAuthor({ name: 'Inazuma BET', iconURL: bot.user.displayAvatarURL(), url: 'https://twitter.com/IESXWC' })
+    .setAuthor({ name: 'Inazuma BET', iconURL: bot.user.displayAvatarURL(), url: 'https://twitter.com/IESXWC'})
+    .setThumbnail(bot.guilds.cache.get(bot.wc).iconURL())
     .setTitle(`Click the button to check your balance`)
     .setTimestamp()
     .setFooter({text: `executed by ${message.user.username}`, iconURL: `${message.user.displayAvatarURL()}`})

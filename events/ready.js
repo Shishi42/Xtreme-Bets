@@ -78,6 +78,11 @@ module.exports = async bot => {
       allowNull: false,
       unique: true,
     },
+    team_group: {
+      type: Sequelize.STRING,
+      allowNull: true,
+      unique: false,
+    },
   })
 
   bot.Players = bot.db.define('player', {
