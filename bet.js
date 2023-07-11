@@ -17,3 +17,5 @@ commands_loader(bot)
 events_loader(bot)
 
 bot.login(config.token)
+
+new cron.CronJob('* 00 00 * * *', () => { require(`./commands/close-bet.js`).run(bot, null, null)}).start()
