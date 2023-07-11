@@ -28,14 +28,15 @@ module.exports = {
     ["1074969062515421224","A"],
     ["1012306136193585193","C"]]
 
+    captain = "1012657654289661963"
 
     ids.forEach(id => {
-      bot.Teams.create({team_id: bot.guilds.cache.get(bot.wc).roles.cache.get(id[0]).id, team_alias: bot.guilds.cache.get(bot.wc).roles.cache.get(id[0]).name, team_group: id[1]})
+      bot.Teams.create({team_id: bot.guilds.cache.get(bot.wc).roles.cache.get(id[0]).id, team_name: bot.guilds.cache.get(bot.wc).roles.cache.get(id[0]).name, team_alias: bot.guilds.cache.get(bot.wc).roles.cache.get(id[0]).name.replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g,'').trim(), team_group: id[1]})
       const Role = bot.guilds.cache.get(bot.wc).roles.cache.find(role => role.id == id[0])
       let team_players = bot.guilds.cache.get(bot.wc).members.cache.filter(member => member.roles.cache.find(role => role == Role)).map(member => member)
 
       team_players.forEach(player => {
-        bot.Players.create({player_id: player.user.id, player_alias: player.user.tag, player_team: bot.guilds.cache.get(bot.wc).roles.cache.get(id[0]).id})
+        bot.Players.create({player_id: player.user.id, player_alias: player.user.tag, player_team: bot.guilds.cache.get(bot.wc).roles.cache.get(id[0]).id, is_captain: player.roles.cache.get(captain) ? 1 : 0})
       })
     })
 
