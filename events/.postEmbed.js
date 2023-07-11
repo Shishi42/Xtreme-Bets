@@ -18,9 +18,10 @@ module.exports = {
 
       results = bet.dataValues.results.split(",")
       ratios = bet.dataValues.ratios.split(",")
-      total = 0
 
       for(i = 0; i < results.length; i++){
+
+        total = 0
 
         value = (bet.dataValues.choices.split(",")[i] == "DRAW") ? "DRAW" : "<@"+bet.dataValues.choices.split(",")[i]+">"
         nb = await bot.Bettings.count({where: { bet_id: bet.dataValues.bet_id, vote: results[i]}})
