@@ -37,7 +37,7 @@ module.exports = {
           })
         } else {
           bet_embed.addFields({
-            name: results[i].toString(),,
+            name: results[i].toString(),
             value: `${value}`
           })
         }
