@@ -32,12 +32,12 @@ module.exports = {
 
         if(bet.dataValues.result_type != "GROUP"){
           bet_embed.addFields({
-            name: results[i],
+            name: results[i].toString(),
             value: `${value} - Ratio if win : ${parseFloat(ratios[i]).toFixed(2)} | Votes : ${nb} | Total : ${total}pts`
           })
         } else {
           bet_embed.addFields({
-            name: results[i],
+            name: results[i].toString(),,
             value: `${value}`
           })
         }
