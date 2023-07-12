@@ -1,4 +1,5 @@
 const Discord = require("discord.js")
+const { Op } = require("sequelize")
 
 module.exports = {
 
@@ -42,8 +43,23 @@ module.exports = {
     bettings = await bot.Bettings.findAll({ where: { bet_id: args.get("id").value, vote: args.get("result").value }})
     for(betting of bettings){
       member = await bot.Members.findOne({ where: { member_id: betting.dataValues.member_id }})
-      new_balance = parseInt(parseInt(betting.dataValues.value) * parseFloat(bet.dataValues.ratios.split(",")[bet.dataValues.results.split(",").indexOf(args.get("result").value)]) + parseInt(member.dataValues.balance))
+      new_points = parseInt(parseInt(betting.dataValues.value) * parseFloat(bet.dataValues.ratios.split(",")[bet.dataValues.results.split(",").indexOf(args.get("result").value)]))
+      new_balance = new_points + parseInt(member.dataValues.balance)
       bot.Members.update({ balance: new_balance}, { where: { member_id: betting.dataValues.member_id }})
+      try {
+        bot.users.cache.get(betting.dataValues.member_id).send(`You earned **${new_points}pts**, with the bet : **${bet.dataValues.label}**.`)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    bettings = await bot.Bettings.findAll({ where: { bet_id: args.get("id").value, vote: {[Op.ne]: args.get("result").value}}})
+    for(betting of bettings){
+      try {
+        bot.users.cache.get(betting.dataValues.member_id).send(`Unfortunately you lost the bet : **${bet.dataValues.label}** (${betting.dataValues.value}pts).`)
+      } catch (error) {
+        console.error(error)
+      }
     }
 
     // if(bet.dataValues.score){

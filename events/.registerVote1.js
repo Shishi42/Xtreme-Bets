@@ -16,9 +16,11 @@ module.exports = {
       .setCustomId("bet_modal_"+bet_id)
 			.setTitle(`Bet Registration - Your Balance : ${member.dataValues.balance}`)
 
-    placeholder = bet.dataValues.results.split(",").length > 3 ?
-      bet.dataValues.results.split(",")[0]+" or "+bet.dataValues.results.split(",")[1]+"..."+bet.dataValues.results.split(",")[bet.dataValues.results.split(",").length-1] :
-      bet.dataValues.results.split(",").join(" or ")
+    if(bet.dataValues.result_type != "GROUP"){
+      placeholder = bet.dataValues.results.split(",").length > 3 ?
+        bet.dataValues.results.split(",")[0]+" or "+bet.dataValues.results.split(",")[1]+"..."+bet.dataValues.results.split(",")[bet.dataValues.results.split(",").length-1] :
+        bet.dataValues.results.split(",").join(" or ")
+    } else placeholder = "Format : 1st-2nd-3rd-4th, exemple : 2-4-1-3"
 
   	const voteInput = new Discord.TextInputBuilder()
 			.setCustomId('voteInput')

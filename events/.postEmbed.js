@@ -14,7 +14,7 @@ module.exports = {
       .setTimestamp()
       .setFooter({text: `A IESXWC bot`, iconURL: bot.guilds.cache.get(bot.wc).iconURL()})
 
-    if (bet.dataValues.result_type == "MATCH" || bet.dataValues.result_type == "FIXTURE" || bet.dataValues.result_type == "TEAM" ) {
+    if (bet.dataValues.result_type == "MATCH" || bet.dataValues.result_type == "FIXTURE" || bet.dataValues.result_type == "TEAM" || bet.dataValues.result_type == "MVP") {
 
       results = bet.dataValues.results.split(",")
       ratios = bet.dataValues.ratios.split(",")
@@ -30,10 +30,17 @@ module.exports = {
           total += parseInt(betting.dataValues.value)
         })
 
-        bet_embed.addFields({
-          name: results[i],
-          value: `${value} - Win Ratio : ${parseInt(ratios[i]).toFixed(2)} | Votes : ${nb} | Total : ${total}pts`
-        })
+        if(bet.dataValues.result_type != "GROUP"){
+          bet_embed.addFields({
+            name: results[i],
+            value: `${value} - Ratio if win : ${parseInt(ratios[i]).toFixed(2)} | Votes : ${nb} | Total : ${total}pts`
+          })
+        } else {
+          bet_embed.addFields({
+            name: results[i],
+            value: `${value}`
+          })
+        }
       }
     }
 
@@ -78,6 +85,11 @@ module.exports = {
         name: last_team.dataValues.team_name,
         value: res
       })
+    }
+
+    if (bet.dataValues.result_type == "GROUP") {
+      bet_embed.setDescription("Possible value :")
+      bet.dataValues.choices.split(",").forEach((c, i) => { bet_embed.addFields({ name: (i+1).toString(), value: `<@${c}>`})})
     }
 
     if(bet.dataValues.score) bet_embed.addFields({ name: 'Score', value: `(not mandatory to bet)`})

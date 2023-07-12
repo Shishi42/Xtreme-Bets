@@ -15,20 +15,11 @@ module.exports = {
       required: true,
       autocomplete: false,
     },
-    {
-      type: "string",
-      name: "all",
-      description: "If you want to refresh all bets",
-      required: true,
-      autocomplete: false,
-    }
   ],
 
   async run(bot, message, args) {
 
-    let id = args.get("id") == "all" ? true : false
-
-    if(args.get("id") == "all"){
+    if(args.get("id").value == "all"){
       bets = await bot.Bets.findAll()
       for(bet of bets){
         await require(`../events/.postEmbed.js`).run(bot, bet, message.channel)

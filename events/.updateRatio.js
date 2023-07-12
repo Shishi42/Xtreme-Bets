@@ -24,7 +24,8 @@ module.exports = {
       ratio[result] ? res.push(ratio[result]) : res.push(1.00)
     })
 
-    bot.Bets.update({ ratios: res.toString()}, { where: { bet_id: bet_id }})
+    await bot.Bets.update({ ratios: res.toString()}, { where: { bet_id: bet_id }})
+    bet = await bot.Bets.findOne({ where: { bet_id: bet_id }})
 
     await require(`../events/.postEmbed.js`).run(bot, bet, null, true)
   }

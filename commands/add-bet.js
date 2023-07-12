@@ -67,6 +67,13 @@ module.exports = {
     },
     {
       type: "string",
+      name: "group",
+      description: "In case of group selection",
+      required: false,
+      autocomplete: false,
+    },
+    {
+      type: "string",
       name: "image",
       description: "Image URL to display",
       required: false,
@@ -138,16 +145,62 @@ module.exports = {
 
       embed.addFields({ name: "74", value: "ALL PLAYERS"})
 
+    } if (choice == "MVP") {
+      players = []
+
+      for(team of [args.get("team1").value, args.get("team2").value]){
+        players.push(await bot.Players.findAll({ where: { player_team: team }}))
+      }
+
+      choices = players.flat().map(player => player.dataValues.player_id)
+      embed.addFields({ name: choices.length.toString(), value: `PLAYERS from <@&${args.get("team1").value}> and <@&${args.get("team2").value}>.`})
+
+    } if (choice == "GROUP") {
+
+      teams = await bot.Teams.findAll({ where: { team_group: args.get("group").value }})
+      choices = teams.map(team => "&"+team.dataValues.team_id)
+
+      choices.forEach((c, i) => { embed.addFields({ name: (i+1).toString(), value: `<@${c}>`})})
+
+      votes = [
+        "1-2-3-4",
+        "1-2-4-3",
+        "1-3-2-4",
+        "1-3-4-2",
+        "1-4-2-3",
+        "1-4-3-2",
+        "2-1-3-4",
+        "2-1-4-3",
+        "2-3-1-4",
+        "2-3-4-1",
+        "2-4-1-3",
+        "2-4-3-1",
+        "3-1-2-4",
+        "3-1-4-2",
+        "3-2-1-4",
+        "3-2-4-1",
+        "3-4-1-2",
+        "3-4-2-1",
+        "4-1-2-3",
+        "4-1-3-2",
+        "4-2-1-3",
+        "4-2-3-1",
+        "4-3-1-2",
+        "4-3-2-1",
+      ]
+
     } if (choice == "TEAM") {
       teams = await bot.Teams.findAll()
       choices = teams.map(team => "&"+team.dataValues.team_id)
     }
 
-    choices.forEach(c => {
-      vote = (c == "DRAW") ? "N" : ++count
-      if(choice != "PLAYER") embed.addFields({ name: vote.toString(), value: (c == "DRAW") ? c : `<@${c}>`})
-      votes.push(vote)
-    })
+    if(choice != "GROUP"){
+      choices.forEach(c => {
+        vote = (c == "DRAW") ? "N" : ++count
+        if(choice != "PLAYER") embed.addFields({ name: vote.toString(), value: (c == "DRAW") ? c : `<@${c}>`})
+        votes.push(vote)
+      })
+    }
 
     // if(score) embed.addFields({ name: 'Score', value: `(not mandatory to bet)`})
     embed.addFields({ name: '\u200B', value: `Votes close at <t:${args.get("epoch").value}:t> (<t:${args.get("epoch").value}:R>).`})
