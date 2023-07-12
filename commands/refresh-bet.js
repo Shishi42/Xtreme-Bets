@@ -22,7 +22,7 @@ module.exports = {
     if(args.get("id").value == "all"){
       bets = await bot.Bets.findAll()
       for(bet of bets){
-        await require(`../events/.postEmbed.js`).run(bot, bet, message.channel)
+        await require(`../events/.postEmbed.js`).run(bot, bet, null, true)
       }
     } else {
       let bet = await bot.Bets.findOne({ where: { bet_id: args.get("id").value }})
