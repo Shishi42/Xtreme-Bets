@@ -22,6 +22,13 @@ module.exports = {
       required: true,
       autocomplete: false,
     },
+    // {
+    //   type: "string",
+    //   name: "score",
+    //   description: "Score result of the bet",
+    //   required: false,
+    //   autocomplete: false,
+    // },
   ],
 
   async run(bot, message, args) {
@@ -39,5 +46,25 @@ module.exports = {
       bot.Members.update({ balance: new_balance}, { where: { member_id: betting.dataValues.member_id }})
     }
 
+    // if(bet.dataValues.score){
+    //   bettings = await bot.Bettings.findAll({ where: { bet_id: args.get("id").value, vote: args.get("result").value, score: args.get("score").value}})
+    //   for(betting of bettings){
+    //     member = await bot.Members.findOne({ where: { member_id: betting.dataValues.member_id }})
+    //     new_balance = parseInt(parseInt(betting.dataValues.value) * parseFloat(bet.dataValues.ratios.split(",")[bet.dataValues.results.split(",").indexOf(args.get("result").value)]) + parseInt(member.dataValues.balance))
+    //     bot.Members.update({ balance: new_balance}, { where: { member_id: betting.dataValues.member_id }})
+    //   }
+    //
+    //   bettings = await bot.Bettings.findAll({ where: { bet_id: args.get("id").value, vote: args.get("result").value, score: ""}})
+    //   for(betting of bettings){
+    //     member = await bot.Members.findOne({ where: { member_id: betting.dataValues.member_id }})
+    //     new_balance = parseInt(parseInt(betting.dataValues.value) * parseFloat(bet.dataValues.ratios.split(",")[bet.dataValues.results.split(",").indexOf(args.get("result").value)]) + parseInt(member.dataValues.balance))
+    //     bot.Members.update({ balance: new_balance}, { where: { member_id: betting.dataValues.member_id }})
+    //   }
+    // }
+    //
+    // else {
+
+    // }
+    return message.reply({content: `Done.`, ephemeral: true})
   }
 }

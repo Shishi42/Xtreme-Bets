@@ -23,6 +23,16 @@ module.exports = {
 			.setStyle(Discord.TextInputStyle.Short)
     modal.addComponents(new Discord.ActionRowBuilder().addComponents(voteInput))
 
+    // if(bet.dataValues.score){
+    //   const scoreInput = new Discord.TextInputBuilder()
+  	// 		.setCustomId('scoreInput')
+  	// 		.setLabel("What is the final score (exemple : 3-1) ?")
+    //     .setPlaceholder("LEAVE EMPTY IF YOU DONT WANT TO BET ON SCORE")
+  	// 		.setStyle(Discord.TextInputStyle.Short)
+    //     .setRequired(false)
+    //   modal.addComponents(new Discord.ActionRowBuilder().addComponents(scoreInput))
+    // }
+
 		const balanceInput = new Discord.TextInputBuilder()
 			.setCustomId('balanceInput')
 			.setLabel("How much do you want to bet ?")

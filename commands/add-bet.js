@@ -79,6 +79,13 @@ module.exports = {
       required: false,
       autocomplete: false,
     },
+    // {
+    //   type: "string",
+    //   name: "score",
+    //   description: "Add a score bet",
+    //   required: false,
+    //   autocomplete: false,
+    // },
   ],
 
   async run(bot, message, args) {
@@ -90,6 +97,7 @@ module.exports = {
     let title = args.get("title").value
     let choice = args.get("type").value
     let draw = args.get("draw") ? true : false
+    // let score = args.get("score") ? true : false
     let image = args.get("image") ? args.get("image").value : null
     let votes = []
 
@@ -127,6 +135,7 @@ module.exports = {
       votes.push(vote)
     })
 
+    // if(score) embed.addFields({ name: 'Score', value: `(not mandatory to bet)`})
     embed.addFields({ name: '\u200B', value: `Votes close at <t:${args.get("epoch").value}:t> (<t:${args.get("epoch").value}:R>).`})
 
     const row = new Discord.ActionRowBuilder()
@@ -156,6 +165,7 @@ module.exports = {
           ratios: ratios.toString(),
           label: title,
           draw: draw,
+          // score: score,
           channel: args.get("post").value,
           message: "",
           close_date: args.get("epoch").value,
