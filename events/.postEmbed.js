@@ -105,7 +105,7 @@ module.exports = {
         .setStyle(Discord.ButtonStyle.Primary))
 
     if(!update) return await bot.channels.cache.get(post).send({embeds: [bet_embed], components: [bet_row]})
-    else if(bet.dataValues.status == "CLOSED") return await bot.channels.cache.get(bet.dataValues.channel).messages.fetch(bet.dataValues.message).then(message => {message.edit({embeds: [bet_embed], components: []})})
+    else if(bet.dataValues.status == "CLOSED" || bet.dataValues.status == "ENDED") return await bot.channels.cache.get(bet.dataValues.channel).messages.fetch(bet.dataValues.message).then(message => {message.edit({embeds: [bet_embed], components: []})})
     else return await bot.channels.cache.get(bet.dataValues.channel).messages.fetch(bet.dataValues.message).then(message => {message.edit({embeds: [bet_embed], components: [bet_row]})})
   }
 
