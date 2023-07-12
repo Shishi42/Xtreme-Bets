@@ -110,6 +110,8 @@ module.exports = {
     .setTimestamp()
     .setFooter({text: `executed by ${message.user.username}`, iconURL: `${message.user.displayAvatarURL()}`})
 
+    count = 0
+
     if (choice == "MATCH" || choice == "FIXTURE") {
 
       if(choice == "MATCH"){
@@ -126,12 +128,24 @@ module.exports = {
 
       choices = draw ? [id+choice1,"DRAW",id+choice2] : [id+choice1,id+choice2]
 
+    } if (choice == "PLAYER") {
+      teams = await bot.Teams.findAll()
+      players = []
+      for(team of teams){
+        players.push(await bot.Players.findAll({ where: { player_team: team.dataValues.team_id }}))
+      }
+      choices = players.flat().map(player => player.dataValues.player_id)
+
+      embed.addFields({ name: "74", value: "ALL PLAYERS"})
+
+    } if (choice == "TEAM") {
+      teams = await bot.Teams.findAll()
+      choices = teams.map(team => "&"+team.dataValues.team_id)
     }
 
-    count = 0
-    choices.forEach(choice => {
-      vote = (choice == "DRAW") ? "N" : ++count
-      embed.addFields({ name: vote.toString(), value: (choice == "DRAW") ? choice : `<@${choice}>`})
+    choices.forEach(c => {
+      vote = (c == "DRAW") ? "N" : ++count
+      if(choice != "PLAYER") embed.addFields({ name: vote.toString(), value: (c == "DRAW") ? c : `<@${c}>`})
       votes.push(vote)
     })
 
