@@ -18,4 +18,4 @@ events_loader(bot)
 
 bot.login(config.token)
 
-new cron.CronJob('* 00 00 * * *', () => { require(`./commands/close-bet.js`).run(bot, null, null)}).start()
+new cron.CronJob('00 01 * * * *', () => { require(`./commands/close-bet.js`).run(bot, null, null)}).start()
