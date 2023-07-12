@@ -48,6 +48,11 @@ module.exports = async bot => {
       allowNull: false,
       defaultValue: false,
     },
+    score: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
     status: {
       type: Sequelize.STRING,
       allowNull: false,
@@ -87,6 +92,9 @@ module.exports = async bot => {
     vote: {
       type: Sequelize.STRING,
       allowNull: false,
+    },
+    score: {
+      type: Sequelize.STRING,
     },
     value: {
       type: Sequelize.STRING,

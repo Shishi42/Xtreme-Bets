@@ -34,5 +34,6 @@ module.exports = {
         require(`../events/.postEmbed.js`).run(bot, bet_update, null, true)
       }
     }
+    return message.reply({content: `Done.`, ephemeral: true})
   }
 }
