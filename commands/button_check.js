@@ -15,11 +15,11 @@ module.exports = {
 
     let embed = new Discord.EmbedBuilder()
     .setColor(bot.color)
-    .setAuthor({ name: 'Inazuma BET', iconURL: bot.user.displayAvatarURL(), url: 'https://twitter.com/IESXWC'})
+    .setAuthor({ name: 'Xtreme Bets', iconURL: bot.user.displayAvatarURL(), url: 'https://twitter.com/IESXWC'})
     .setThumbnail(bot.guilds.cache.get(bot.wc).iconURL())
     .setTitle(`Click the button to check all your active bets.`)
     .setTimestamp()
-    .setFooter({text: `executed by ${message.user.username}`, iconURL: `${message.user.displayAvatarURL()}`})
+    .setFooter({text: `A IESXWC bot`, iconURL: bot.guilds.cache.get(bot.wc).iconURL()})
 
     const row = new Discord.ActionRowBuilder().addComponents(
       new Discord.ButtonBuilder()

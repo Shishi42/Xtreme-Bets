@@ -15,12 +15,12 @@ module.exports = {
 
     let embed = new Discord.EmbedBuilder()
     .setColor(bot.color)
-    .setAuthor({ name: 'Inazuma BET', iconURL: bot.user.displayAvatarURL(), url: 'https://twitter.com/IESXWC'})
+    .setAuthor({ name: 'Xtreme Bets', iconURL: bot.user.displayAvatarURL(), url: 'https://twitter.com/IESXWC'})
     .setThumbnail(bot.guilds.cache.get(bot.wc).iconURL())
     .setTitle(`Click the button to get your first points`)
     .setDescription(`As a starting point you will receive 100 points.`)
     .setTimestamp()
-    .setFooter({text: `executed by ${message.user.username}`, iconURL: `${message.user.displayAvatarURL()}`})
+    .setFooter({text: `A IESXWC bot`, iconURL: bot.guilds.cache.get(bot.wc).iconURL()})
 
     const row = new Discord.ActionRowBuilder().addComponents(
       new Discord.ButtonBuilder()

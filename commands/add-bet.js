@@ -110,7 +110,7 @@ module.exports = {
 
     let embed = new Discord.EmbedBuilder()
     .setColor(bot.color)
-    .setAuthor({ name: 'Inazuma BET', iconURL: bot.user.displayAvatarURL(), url: 'https://twitter.com/IESXWC' })
+    .setAuthor({ name: 'Xtreme Bets', iconURL: bot.user.displayAvatarURL(), url: 'https://twitter.com/IESXWC' })
     .setTitle(title)
     .setDescription("Possible results :")
     .setImage(image)
