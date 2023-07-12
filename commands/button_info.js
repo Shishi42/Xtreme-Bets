@@ -26,6 +26,7 @@ module.exports = {
       {name: "How to start ?", value: "You can find below a message with a button, click it and you will get your first 100 points :arrow_down:"},
       {name: "How to bet ?", value: "Go to https://discord.com/channels/1002554730863661147/1047857979879346177 and find a bet that you want to bet on, click the **BET** button and fill your bet info."},
       {name: "How to fill the bet info ?", value: "When submitting a bet you will be asked 2 things : \n- The amount of points that you put into play. \n- What you bet on (usually a number that represents a choice displayed on the bet message)."},
+      {name: "How much time I have to bet ?", value: "Usually the bets will be available a few days before the event and will be automatically closed at the beginning of said events."},
       {name: "How do I check my balance and active bets ?", value: "You can find below some messages with a button that you can use for these purposes."},
       {name: "How can I know that I won or lost a bet ?", value: "When a bet has ended you will receive via DM the result of your bet so **please check that the bot can send it to you.**"},
       {name: "I have no more points, can I get some free ?", value: "**No**, losing all your points means that you are **eliminated**, so be careful when you bet."},
