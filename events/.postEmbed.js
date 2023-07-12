@@ -92,7 +92,7 @@ module.exports = {
       bet.dataValues.choices.split(",").forEach((c, i) => { bet_embed.addFields({ name: (i+1).toString(), value: `<@${c}>`})})
     }
 
-    if(bet.dataValues.score) bet_embed.addFields({ name: 'Score', value: `(not mandatory to bet)`})
+    // if(bet.dataValues.score) bet_embed.addFields({ name: 'Score', value: `(not mandatory to bet)`})
 
     if(bet.dataValues.status == "OPEN") bet_embed.addFields({ name: '\u200B', value: `Votes close at <t:${bet.dataValues.close_date}:t> (<t:${bet.dataValues.close_date}:R>) | BET ID : \`${bet.dataValues.bet_id}\`.`})
     else if (bet.dataValues.status == "CLOSED") bet_embed.addFields({ name: '\u200B', value: `Votes are now closed | BET ID : \`${bet.dataValues.bet_id}\`.`})
@@ -106,7 +106,7 @@ module.exports = {
 
     if(!update) return await bot.channels.cache.get(post).send({embeds: [bet_embed], components: [bet_row]})
     else if(bet.dataValues.status == "CLOSED") return await bot.channels.cache.get(bet.dataValues.channel).messages.fetch(bet.dataValues.message).then(message => {message.edit({embeds: [bet_embed], components: []})})
-    else return await bot.channels.cache.get(bet.dataValues.channel).messages.fetch(bet.dataValues.message).then(message => {message.edit({embeds: [bet_embed]})})
+    else return await bot.channels.cache.get(bet.dataValues.channel).messages.fetch(bet.dataValues.message).then(message => {message.edit({{embeds: [bet_embed], components: [bet_row]})})
   }
 
 }
