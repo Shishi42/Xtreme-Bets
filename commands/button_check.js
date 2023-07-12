@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 
 module.exports = {
 
-  name: "button_balance",
+  name: "button_check",
   description: "Create the balance checking system message",
   permission: Discord.PermissionFlagsBits.Administrator,
   dm: false,
@@ -17,14 +17,14 @@ module.exports = {
     .setColor(bot.color)
     .setAuthor({ name: 'Inazuma BET', iconURL: bot.user.displayAvatarURL(), url: 'https://twitter.com/IESXWC'})
     .setThumbnail(bot.guilds.cache.get(bot.wc).iconURL())
-    .setTitle(`Click the button to check your balance`)
+    .setTitle(`Click the button to check all your active bets.`)
     .setTimestamp()
     .setFooter({text: `executed by ${message.user.username}`, iconURL: `${message.user.displayAvatarURL()}`})
 
     const row = new Discord.ActionRowBuilder().addComponents(
       new Discord.ButtonBuilder()
-        .setCustomId('balance')
-        .setLabel('Enter')
+        .setCustomId('check')
+        .setLabel('Check')
         .setStyle(Discord.ButtonStyle.Primary))
 
     message.channel.send({embeds: [embed], components: [row]})
