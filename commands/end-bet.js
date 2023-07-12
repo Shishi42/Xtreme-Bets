@@ -65,6 +65,7 @@ module.exports = {
     // else {
 
     // }
+    await require(`../events/.log.js`).run(bot, `[END-BET] : **${bet.dataValues.label}** with id : **${bet.dataValues.bet_id}** with final result : **${args.get("result").value}**`)
     return message.reply({content: `Done.`, ephemeral: true})
   }
 }

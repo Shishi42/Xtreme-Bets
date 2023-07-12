@@ -189,12 +189,11 @@ module.exports = {
         post = await require(`../events/.postEmbed.js`).run(bot, bet, args.get("post").value)
         bot.Bets.update({ message: post.id}, { where: { bet_id: bet_id }})
 
-        // message.editReply({components: []})
-        //
-        // return i.followUp(`Bet **${title}** created with id : **${bet_id}**.`)
+        await require(`../events/.log.js`).run(bot, `[ADD-BET] : **${message.member.user.username}** added **${title}** with id : **${bet_id}**`)
         return i.editReply({content: `Bet **${title}** created with id : **${bet_id}**.`, components: [], ephemeral: true})
 
       } else if (i.customId === 'cancel') {
+        await require(`../events/.log.js`).run(bot, `[ADD-BET] : **${message.member.user.username}** tried to add **${title}** with id : **${bet_id}**`)
         return i.editReply({content: 'Bet creation canceled.', components: [], ephemeral: true})
       }
     })

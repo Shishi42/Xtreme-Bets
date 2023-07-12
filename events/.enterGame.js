@@ -11,6 +11,7 @@ module.exports = {
     } else {
       interaction.reply({content: 'You have already been granted your starting points.', ephemeral: true})
     }
+    await require(`../events/.log.js`).run(bot, `[GAME-ENTER] : **${interaction.member.user.username}**`)
   }
 
 }

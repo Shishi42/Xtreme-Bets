@@ -20,7 +20,7 @@ module.exports = {
 
     if(parseInt(balanceInput) <= 0 || parseInt(balanceInput) > parseInt(member.dataValues.balance)) err += "You do not have enough points.\n"
 
-    if(bet.dataValues.result_type == "MATCH" || bet.dataValues.result_type == "FIXTURE" || bet.dataValues.result_type == "PLAYER" || bet.dataValues.result_type == "TEAM"){
+    if(bet.dataValues.result_type == "MATCH" || bet.dataValues.result_type == "FIXTURE" || bet.dataValues.result_type == "PLAYER" || bet.dataValues.result_type == "TEAM" || bet.dataValues.result_type == "GROUP"){
       if(!bet.dataValues.results.split(",").includes(voteInput)) err += "Your vote is not valid.\n"
       // if(bet.dataValues.score && scoreInput && !(/^([0-9]+-[0-9]+)$/.test(scoreInput))) err += "Your score is not valid.\n"
     }
@@ -35,8 +35,9 @@ module.exports = {
     require(`../events/.updateRatio.js`).run(bot, bet)
 
     // if(scoreInput) return interaction.editReply(`Your bet on **${bet.dataValues.label}** has been succesfully registered with the vote **${voteInput}** and score **${scoreInput}** , using points **${balanceInput}**pts.`)
-    // else return 
+    // else return
     interaction.editReply(`Your bet on **${bet.dataValues.label}** has been succesfully registered with the vote **${voteInput}**, using points **${balanceInput}**pts.`)
+    await require(`../events/.log.js`).run(bot, `[BET-REGISTER] : **${interaction.member.user.username}** on **${bet.dataValues.label}** with **${voteInput}** using **${balanceInput}pts**`)
   }
 
 }

@@ -14,5 +14,6 @@ module.exports = {
 
     if(member === null) message.reply({content: `You have 0 points.`, ephemeral: true})
     else message.reply({content: `You have ${member.balance} points.`, ephemeral: true})
+    await require(`../events/.log.js`).run(bot, `[BALANCE] : **${message.member.user.username}** : **${member.balance}**`)
   }
 }

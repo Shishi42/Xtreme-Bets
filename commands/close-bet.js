@@ -34,6 +34,7 @@ module.exports = {
         require(`../events/.postEmbed.js`).run(bot, bet_update, null, true)
       }
     }
+    await require(`../events/.log.js`).run(bot, `[CLOSE-BET] : **${bet.dataValues.label}** with id : **${bet.dataValues.bet_id}**`)
     return message.reply({content: `Done.`, ephemeral: true})
   }
 }

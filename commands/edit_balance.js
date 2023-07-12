@@ -45,5 +45,6 @@ module.exports = {
       await bot.Members.update({ balance: member_balance}, { where: { member_id: user.user.id }})
       message.reply({content: `${user.user.tag} new balance is ${member_balance}`, ephemeral: true})
     }
+    await require(`../events/.log.js`).run(bot, `[EDIT-BALANCE] : **${message.member.user.username}** edited **${user.user.username}** with **${amount}**`)
   }
 }
