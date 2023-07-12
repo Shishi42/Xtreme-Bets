@@ -24,12 +24,13 @@ module.exports = {
       for(bet of bets){
         await require(`../events/.postEmbed.js`).run(bot, bet, null, true)
       }
+      await require(`../events/.log.js`).run(bot, `[REFRESH-BET-ALL] : **${message.member.user.username}** of **ALL**`)
     } else {
       let bet = await bot.Bets.findOne({ where: { bet_id: args.get("id").value }})
       if(!bet) return message.editReply("No bet with this ID.")
       require(`../events/.postEmbed.js`).run(bot, bet, null, true)
+      await require(`../events/.log.js`).run(bot, `[REFRESH-BET] : **${message.member.user.username}** of id **${args.get("id").value}**`)
     }
-    await require(`../events/.log.js`).run(bot, `[REFRESH-BET] : **${message.member.user.username}** of id **${args.get("id").value}**`)
     return message.reply({content: `Done.`, ephemeral: true})
   }
 }
