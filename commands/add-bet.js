@@ -130,7 +130,7 @@ module.exports = {
         choice1 = args.get("team1").value
         choice2 = args.get("team2").value
         id = "&"
-        if(!await bot.Teams.findOne({ where: { team_id: choice1 }}) || await !bot.Players.findOne({ where: { team_id: choice2 }})) return message.editReply("One of the role provided is not a tealm.")
+        if(!await bot.Teams.findOne({ where: { team_id: choice1 }}) || await !bot.Teams.findOne({ where: { team_id: choice2 }})) return message.editReply("One of the role provided is not a tealm.")
       }
 
       choices = draw ? [id+choice1,"DRAW",id+choice2] : [id+choice1,id+choice2]
