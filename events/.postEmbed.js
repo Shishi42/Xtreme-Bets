@@ -94,7 +94,7 @@ module.exports = {
 
     // if(bet.dataValues.score) bet_embed.addFields({ name: 'Score', value: `(not mandatory to bet)`})
 
-    if(bet.dataValues.status == "OPEN") bet_embed.addFields({ name: '\u200B', value: `Votes close at <t:${bet.dataValues.close_date}:t> (<t:${bet.dataValues.close_date}:R>) | BET ID : \`${bet.dataValues.bet_id}\`.`})
+    if(bet.dataValues.status == "OPEN") bet_embed.addFields({ name: '\u200B', value: `Votes close at <t:${bet.dataValues.close_date}:f> (<t:${bet.dataValues.close_date}:R>) | BET ID : \`${bet.dataValues.bet_id}\`.\n❗Please check <#1128562291516919898> before betting.❗`})
     else if (bet.dataValues.status == "CLOSED") bet_embed.addFields({ name: '\u200B', value: `Votes are now closed | BET ID : \`${bet.dataValues.bet_id}\`.`})
     else if (bet.dataValues.status == "ENDED") bet_embed.addFields({ name: '\u200B', value: `This bet has already ended, final result is : **${bet.dataValues.final}** | BET ID : \`${bet.dataValues.bet_id}\`.`})
 
