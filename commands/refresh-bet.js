@@ -19,6 +19,8 @@ module.exports = {
 
   async run(bot, message, args) {
 
+    message.deferReply({ephemeral: true})
+
     if(args.get("id").value == "all"){
       bets = await bot.Bets.findAll()
       for(bet of bets){
@@ -31,6 +33,6 @@ module.exports = {
       require(`../events/.postEmbed.js`).run(bot, bet, null, true)
       require(`../events/.log.js`).run(bot, `[REFRESH-BET] : **${message.member.user.username}** of id **${args.get("id").value}**`)
     }
-    return message.reply({content: `Done.`, ephemeral: true})
+    return message.editReply({content: `Done.`, ephemeral: true})
   }
 }

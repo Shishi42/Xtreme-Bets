@@ -97,7 +97,7 @@ module.exports = {
 
   async run(bot, message, args) {
 
-    await message.deferReply({ephemeral: true})
+    message.deferReply({ephemeral: true})
 
     bet_id = await bot.Bets.count() + 1
 

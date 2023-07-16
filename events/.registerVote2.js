@@ -4,7 +4,7 @@ module.exports = {
 
   async run(bot, interaction) {
 
-    await interaction.deferReply({ephemeral: true})
+    interaction.deferReply({ephemeral: true})
 
     voteInput = interaction.fields.getTextInputValue('voteInput');
 	  balanceInput = interaction.fields.getTextInputValue('balanceInput');
