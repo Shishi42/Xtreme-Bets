@@ -125,12 +125,12 @@ module.exports = {
         choice1 = args.get("user1").value
         choice2 = args.get("user2").value
         id = ""
-        if(!await bot.Players.findOne({ where: { player_id: choice1 }}) || await !bot.Players.findOne({ where: { player_id: choice2 }})) return message.editReply("One of the user provided is not a player.")
+        // if(!await bot.Players.findOne({ where: { player_id: choice1 }}) || await !bot.Players.findOne({ where: { player_id: choice2 }})) return message.editReply("One of the user provided is not a player.")
       } else {
         choice1 = args.get("team1").value
         choice2 = args.get("team2").value
         id = "&"
-        if(!await bot.Teams.findOne({ where: { team_id: choice1 }}) || await !bot.Teams.findOne({ where: { team_id: choice2 }})) return message.editReply("One of the role provided is not a tealm.")
+        // if(!await bot.Teams.findOne({ where: { team_id: choice1 }}) || await !bot.Teams.findOne({ where: { team_id: choice2 }})) return message.editReply("One of the role provided is not a team.")
       }
 
       choices = draw ? [id+choice1,"DRAW",id+choice2] : [id+choice1,id+choice2]
@@ -238,6 +238,21 @@ module.exports = {
           close_date: args.get("epoch").value,
           image_url: image,
         })
+
+        if(choice == "FIXTURE"){
+          desc = title+"\n\n\n\n- **SPANISH STREAM 🇪🇸**\n - https://www.twitch.tv/tecaotaku\n - https://www.twitch.tv/adrisylver23\n - https://www.twitch.tv/punchodd\n\n- **FRENCH STREAM 🇫🇷**\n - https://www.twitch.tv/phase5_\n\n- **GERMAN STREAM 🇩🇪** \n - https://www.twitch.tv/nd_haku\n\n- **ITALIAN STREAM 🇮🇹**\n - https://www.twitch.tv/ninokiii\n\n- **BRAZILIAN STREAM 🇧🇷**\n - https://www.twitch.tv/lemonadeeventosbr\n\n- **ENGLISH STREAM 🇬🇧**\n - https://www.youtube.com/@TaleOfTheToaster\n\n- **POLISH STREAM 🇵🇱**\n - https://www.youtube.com/@igoxteam8935\n"
+          time = parseInt(args.get("epoch").value+"000")
+
+          message.guild.scheduledEvents.create({
+            name: title,
+            scheduledStartTime: new Date(time),
+            scheduledEndTime: new Date(time+5400000),
+            privacyLevel: 2,
+            entityType: 3,
+            description: desc,
+            entityMetadata: {location: "https://twitter.com/IESXWC"},
+          })
+        }
 
         post = await require(`../events/.postEmbed.js`).run(bot, bet, args.get("post").value)
         bot.Bets.update({ message: post.id}, { where: { bet_id: bet_id }})

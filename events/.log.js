@@ -20,7 +20,7 @@ module.exports = {
     ]
 
     temp_date = new Date()
-    res = "__["+temp_date.getHours()+":"+temp_date.getMinutes()+":"+temp_date.getSeconds()+" - "+temp_date.getDate()+" "+months[temp_date.getMonth()]+" "+temp_date.getFullYear()+"]__ - " + message
+    res = "__["+temp_date.getHours().toString().padStart(2,"0")+":"+temp_date.getMinutes().toString().padStart(2,"0")+":"+temp_date.getSeconds().toString().padStart(2,"0")+" - "+temp_date.getDate().toString().padStart(2,"0")+" "+months[temp_date.getMonth()]+" "+temp_date.getFullYear()+"]__ - " + message
     bot.channels.cache.get(bot.log).send(res)
   }
 
