@@ -14,11 +14,11 @@ module.exports = {
 
     if(!member) {
       message.reply({content: `You have 0 points.`, ephemeral: true})
-      await require(`../events/.log.js`).run(bot, `[BALANCE] : **${message.member.user.username}** : **${member.dataValues.balance}**`)
+      await require(`../events/.log.js`).run(bot, `[BALANCE] : **${message.member.user.username}** : **0**`)
     }
     else {
-      message.reply({content: `You have ${member.balance} points.`, ephemeral: true})
-      await require(`../events/.log.js`).run(bot, `[BALANCE] : **${message.member.user.username}** : **0**`)
+      message.reply({content: `You have ${member.dataValues.balance} points.`, ephemeral: true})
+      await require(`../events/.log.js`).run(bot, `[BALANCE] : **${message.member.user.username}** : **${member.dataValues.balance}**`)
     }
   }
 }
