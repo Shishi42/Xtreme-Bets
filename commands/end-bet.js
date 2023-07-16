@@ -58,7 +58,7 @@ module.exports = {
       try {
         bot.users.cache.get(betting.dataValues.member_id).send(`Unfortunately you lost the bet : **${bet.dataValues.label}** (${betting.dataValues.value}pts).`)
       } catch (error) {
-        console.error(error)
+        await require(`../events/.log.js`).run(bot, `[ERROR-DM] : **${bot.users.cache.get(betting.dataValues.member_id).username}**`)
       }
     }
 
