@@ -58,7 +58,8 @@ module.exports = {
       try {
         bot.users.cache.get(betting.dataValues.member_id).send(`Unfortunately you lost the bet : **${bet.dataValues.label}** (${betting.dataValues.value}pts).`)
       } catch (error) {
-        console.error(error)
+        member = await bot.Members.findOne({ where: { member_id: betting.dataValues.member_id }})
+        await require(`../events/.log.js`).run(bot, `[ERROR-DM] : **${bet.dataValues.label}**`)
       }
     }
 
