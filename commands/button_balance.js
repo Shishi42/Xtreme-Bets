@@ -24,7 +24,7 @@ module.exports = {
     const row = new Discord.ActionRowBuilder().addComponents(
       new Discord.ButtonBuilder()
         .setCustomId('balance')
-        .setLabel('Enter')
+        .setLabel('Check')
         .setStyle(Discord.ButtonStyle.Primary))
 
     message.channel.send({embeds: [embed], components: [row]})
