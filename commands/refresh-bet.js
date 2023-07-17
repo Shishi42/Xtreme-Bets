@@ -19,7 +19,7 @@ module.exports = {
 
   async run(bot, message, args) {
 
-    message.deferReply({ephemeral: true})
+    await message.deferReply({ephemeral: true})
 
     if(args.get("id").value == "all"){
       bets = await bot.Bets.findAll()
