@@ -44,7 +44,7 @@ module.exports = {
 
       message.followUp({embeds: [bet_embed], ephemeral: true})
     }
-    await require(`../events/.log.js`).run(bot, `[LIST-BET] : **${message.member.user.username}** with status **${args.get("status")}**`)
+    require(`../events/.log.js`).run(bot, `[LIST-BET] : **${message.member.user.username}** with status **${args.get("status")}**`)
     return message.editReply({content: `Done.`, ephemeral: true})
   }
 }

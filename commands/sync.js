@@ -39,7 +39,7 @@ module.exports = {
         bot.Players.create({player_id: player.user.id, player_alias: player.user.tag, player_team: bot.guilds.cache.get(bot.wc).roles.cache.get(id[0]).id, is_captain: player.roles.cache.get(captain) ? 1 : 0})
       })
     })
-    await require(`../events/.log.js`).run(bot, `[SYNC] : **${message.member.user.username}**`)
+    require(`../events/.log.js`).run(bot, `[SYNC] : **${message.member.user.username}**`)
     return message.reply({content: `Done.`, ephemeral: true})
   }
 }

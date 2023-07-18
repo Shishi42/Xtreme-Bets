@@ -16,6 +16,6 @@ module.exports = {
       }
       await interaction.editReply({content: "Done.", ephemeral: true})
     }
-    await require(`../events/.log.js`).run(bot, `[BET-CHECK] : **${interaction.member.user.username}**`)
+    require(`../events/.log.js`).run(bot, `[BET-CHECK] : **${interaction.member.user.username}**`)
   }
 }

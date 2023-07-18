@@ -37,7 +37,7 @@ module.exports = {
     // if(scoreInput) return interaction.editReply(`Your bet on **${bet.dataValues.label}** has been succesfully registered with the vote **${voteInput}** and score **${scoreInput}** , using points **${balanceInput}**pts.`)
     // else return
     interaction.editReply(`Your bet on **${bet.dataValues.label}** has been succesfully registered with the vote **${voteInput}**, using points **${balanceInput}**pts.`)
-    await require(`../events/.log.js`).run(bot, `[BET-REGISTER] : **${interaction.member.user.username}** on **${bet.dataValues.label}** (**${bet.dataValues.bet_id}**) with **${voteInput}** using **${balanceInput}pts**`)
+    require(`../events/.log.js`).run(bot, `[BET-REGISTER] : **${interaction.member.user.username}** on **${bet.dataValues.label}** (**${bet.dataValues.bet_id}**) with **${voteInput}** using **${balanceInput}pts**`)
   }
 
 }

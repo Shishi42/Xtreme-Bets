@@ -25,10 +25,10 @@ module.exports = {
       await bot.Bets.update({ status: "CLOSED" }, { where: { bet_id: id }})
       bet = await bot.Bets.findOne({ where: { bet_id: id }})
       require(`../events/.postEmbed.js`).run(bot, bet, null, true)
-      await require(`../events/.log.js`).run(bot, `[CLOSE-BET] : **${bet.dataValues.label}** with id : **${bet.dataValues.bet_id}**`)
+      require(`../events/.log.js`).run(bot, `[CLOSE-BET] : **${bet.dataValues.label}** with id : **${bet.dataValues.bet_id}**`)
       return message.reply({content: `Done.`, ephemeral: true})
     } else {
-      await require(`../events/.log.js`).run(bot, `[LAUNCH-CLOSE-BET-AUTO]`)
+      require(`../events/.log.js`).run(bot, `[LAUNCH-CLOSE-BET-AUTO]`)
       let epoch = Math.round(new Date().getTime() / 1000)
 
       open_bets = await bot.Bets.findAll({ where: { status: "OPEN" }})
@@ -37,7 +37,7 @@ module.exports = {
           bot.Bets.update({ status: "CLOSED" }, { where: { bet_id: bet.dataValues.bet_id }})
           bet_update = await bot.Bets.findOne({ where: { bet_id: bet.dataValues.bet_id }})
           require(`../events/.postEmbed.js`).run(bot, bet_update, null, true)
-          await require(`../events/.log.js`).run(bot, `[CLOSE-BET-AUTO] : **${bet_update.dataValues.label}** with id : **${bet_update.dataValues.bet_id}**`)
+          require(`../events/.log.js`).run(bot, `[CLOSE-BET-AUTO] : **${bet_update.dataValues.label}** with id : **${bet_update.dataValues.bet_id}**`)
         }
       }
     }

@@ -24,6 +24,6 @@ module.exports = {
 
     if(member === null) message.reply({content: `${user.user.tag} has 0 points.`, ephemeral: true})
     else message.reply({content: `${user.user.tag} has ${member.balance} points.`, ephemeral: true})
-    await require(`../events/.log.js`).run(bot, `[CHECK-BALANCE] : **${message.member.user.username}** for **${user.user.username}'s'** balance : **${member.balance}**`)
+    require(`../events/.log.js`).run(bot, `[CHECK-BALANCE] : **${message.member.user.username}** for **${user.user.username}'s'** balance : **${member.balance}**`)
   }
 }
