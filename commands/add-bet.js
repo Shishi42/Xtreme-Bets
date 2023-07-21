@@ -92,7 +92,7 @@ module.exports = {
 
     await message.deferReply({ephemeral: true})
 
-    bet_id = await bot.Bets.count() + 1
+    bet_id = parseInt(await bot.Bets.count()) + 1
 
     let title = args.get("title").value
     let choice = args.get("type").value
@@ -178,10 +178,12 @@ module.exports = {
     if(choice != "GROUP"){
       choices.forEach(c => {
         vote = (c == "DRAW") ? "N" : ++count
-        embed.addFields({ name: vote.toString(), value: (c == "DRAW") ? c : `<@${c}>`})
+        if(choice != "PLAYER") embed.addFields({ name: vote.toString(), value: (c == "DRAW") ? c : `<@${c}>`})
         votes.push(vote)
       })
     }
+
+    if(choice == "PLAYER") embed.addFields({ name: choices.length.toString(), value: "ALL PLAYERS"})
 
     embed.addFields({ name: '\u200B', value: `Votes close at <t:${args.get("epoch").value}:f> (<t:${args.get("epoch").value}:R>).`})
 
