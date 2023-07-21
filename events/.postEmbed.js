@@ -14,7 +14,7 @@ module.exports = {
       .setTimestamp()
       .setFooter({text: `A IESXWC bot`, iconURL: bot.guilds.cache.get(bot.wc).iconURL()})
 
-    if (bet.dataValues.result_type == "MATCH" || bet.dataValues.result_type == "FIXTURE" || bet.dataValues.result_type == "TEAM" || bet.dataValues.result_type == "MVP") {
+    if (bet.dataValues.result_type == "MATCH" || bet.dataValues.result_type == "FIXTURE" || bet.dataValues.result_type == "TEAM") {
 
       results = bet.dataValues.results.split(",")
       ratios = bet.dataValues.ratios.split(",")
@@ -44,13 +44,11 @@ module.exports = {
       }
     }
 
-    if (bet.dataValues.result_type == "PLAYER") {
+    if (bet.dataValues.result_type == "PLAYER" || bet.dataValues.result_type == "MVP") {
 
       results = bet.dataValues.results.split(",")
       choices = bet.dataValues.choices.split(",")
       ratios = bet.dataValues.ratios.split(",")
-
-      // console.log(ratios)
 
       last_player = await bot.Players.findOne({where: { player_id: choices[0]}})
       res = ""
@@ -91,8 +89,6 @@ module.exports = {
       bet_embed.setDescription("Possible value :")
       bet.dataValues.choices.split(",").forEach((c, i) => { bet_embed.addFields({ name: (i+1).toString(), value: `<@${c}>`})})
     }
-
-    // if(bet.dataValues.score) bet_embed.addFields({ name: 'Score', value: `(not mandatory to bet)`})
 
     if(bet.dataValues.status == "OPEN") bet_embed.addFields({ name: '\u200B', value: `Votes close at <t:${bet.dataValues.close_date}:f> (<t:${bet.dataValues.close_date}:R>) | BET ID : \`${bet.dataValues.bet_id}\`.\n**Please check <#1128562291516919898> before starting to bet❗**`})
     else if (bet.dataValues.status == "CLOSED") bet_embed.addFields({ name: '\u200B', value: `Votes are now closed | BET ID : \`${bet.dataValues.bet_id}\`.`})

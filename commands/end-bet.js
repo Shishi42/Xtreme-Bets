@@ -23,18 +23,14 @@ module.exports = {
       required: true,
       autocomplete: false,
     },
-    // {
-    //   type: "string",
-    //   name: "score",
-    //   description: "Score result of the bet",
-    //   required: false,
-    //   autocomplete: false,
-    // },
   ],
 
   async run(bot, message, args) {
 
-    if(!await bot.Bets.findOne({ where: { bet_id: args.get("id").value }})) return message.editReply("No bet with this ID.")
+    bet = await bot.Bets.findOne({ where: { bet_id: args.get("id").value }})
+
+    if(!bet) return message.reply("No bet with this ID.")
+    if(bet.dataValues.status == "ENDED") return message.reply("This bet has already ended.")
 
     await bot.Bets.update({ status: "ENDED", final: args.get("result").value}, { where: { bet_id: args.get("id").value }})
     bet = await bot.Bets.findOne({ where: { bet_id: args.get("id").value }})
@@ -47,40 +43,23 @@ module.exports = {
       new_balance = new_points + parseInt(member.dataValues.balance)
       bot.Members.update({ balance: new_balance}, { where: { member_id: betting.dataValues.member_id }})
       try {
-        bot.users.cache.get(betting.dataValues.member_id).send(`You earned **${new_points}pts**, with the bet : **${bet.dataValues.label}**.`)
+        bot.users.cache.get(betting.dataValues.member_id).send(`**Congrats !** You earned **${new_points}pts** (${betting.dataValues.value}pts x ${parseFloat(bet.dataValues.ratios.split(",")[bet.dataValues.results.split(",").indexOf(args.get("result").value)]).toFixed(2).toString()}), with the bet : **${bet.dataValues.label}** while voting : **${betting.dataValues.vote}**.`)
+        require(`../events/.log.js`).run(bot, `[WIN-BET] : **${bot.users.cache.get(betting.dataValues.member_id).username}** on **${bet.dataValues.label}** (${bet.dataValues.bet_id}) with **${betting.dataValues.vote}** using **${betting.dataValues.value}pts** :arrow_right: winning **${new_points}pts** (${betting.dataValues.value}pts x ${parseFloat(bet.dataValues.ratios.split(",")[bet.dataValues.results.split(",").indexOf(args.get("result").value)]).toFixed(2).toString()})`)
       } catch (error) {
-        console.error(error)
+        require(`../events/.log.js`).run(bot, `[ERROR-DM] : **${bot.users.cache.get(betting.dataValues.member_id).username}**`)
       }
     }
 
     bettings = await bot.Bettings.findAll({ where: { bet_id: args.get("id").value, vote: {[Op.ne]: args.get("result").value}}})
     for(betting of bettings){
       try {
-        bot.users.cache.get(betting.dataValues.member_id).send(`Unfortunately you lost the bet : **${bet.dataValues.label}** (${betting.dataValues.value}pts).`)
+        bot.users.cache.get(betting.dataValues.member_id).send(`Unfortunately you **lost** the bet : **${bet.dataValues.label}** using ${betting.dataValues.value}pts while voting : **${betting.dataValues.vote}**.`)
+        require(`../events/.log.js`).run(bot, `[LOST-BET] : **${bot.users.cache.get(betting.dataValues.member_id).username}** on **${bet.dataValues.label}** (${bet.dataValues.bet_id}) with **${betting.dataValues.vote}** using **${betting.dataValues.value}pts**`)
       } catch (error) {
-        await require(`../events/.log.js`).run(bot, `[ERROR-DM] : **${bot.users.cache.get(betting.dataValues.member_id).username}**`)
+        require(`../events/.log.js`).run(bot, `[ERROR-DM] : **${bot.users.cache.get(betting.dataValues.member_id).username}**`)
       }
     }
 
-    // if(bet.dataValues.score){
-    //   bettings = await bot.Bettings.findAll({ where: { bet_id: args.get("id").value, vote: args.get("result").value, score: args.get("score").value}})
-    //   for(betting of bettings){
-    //     member = await bot.Members.findOne({ where: { member_id: betting.dataValues.member_id }})
-    //     new_balance = parseInt(parseInt(betting.dataValues.value) * parseFloat(bet.dataValues.ratios.split(",")[bet.dataValues.results.split(",").indexOf(args.get("result").value)]) + parseInt(member.dataValues.balance))
-    //     bot.Members.update({ balance: new_balance}, { where: { member_id: betting.dataValues.member_id }})
-    //   }
-    //
-    //   bettings = await bot.Bettings.findAll({ where: { bet_id: args.get("id").value, vote: args.get("result").value, score: ""}})
-    //   for(betting of bettings){
-    //     member = await bot.Members.findOne({ where: { member_id: betting.dataValues.member_id }})
-    //     new_balance = parseInt(parseInt(betting.dataValues.value) * parseFloat(bet.dataValues.ratios.split(",")[bet.dataValues.results.split(",").indexOf(args.get("result").value)]) + parseInt(member.dataValues.balance))
-    //     bot.Members.update({ balance: new_balance}, { where: { member_id: betting.dataValues.member_id }})
-    //   }
-    // }
-    //
-    // else {
-
-    // }
     require(`../events/.log.js`).run(bot, `[END-BET] : **${bet.dataValues.label}** with id : **${bet.dataValues.bet_id}** with final result : **${args.get("result").value}**`)
     return message.reply({content: `Done.`, ephemeral: true})
   }

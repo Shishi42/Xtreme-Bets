@@ -86,13 +86,6 @@ module.exports = {
       required: false,
       autocomplete: false,
     },
-    // {
-    //   type: "string",
-    //   name: "score",
-    //   description: "Add a score bet",
-    //   required: false,
-    //   autocomplete: false,
-    // },
   ],
 
   async run(bot, message, args) {
@@ -104,7 +97,6 @@ module.exports = {
     let title = args.get("title").value
     let choice = args.get("type").value
     let draw = args.get("draw") ? true : false
-    // let score = args.get("score") ? true : false
     let image = args.get("image") ? args.get("image").value : null
     let votes = []
 
@@ -125,35 +117,24 @@ module.exports = {
         choice1 = args.get("user1").value
         choice2 = args.get("user2").value
         id = ""
-        // if(!await bot.Players.findOne({ where: { player_id: choice1 }}) || await !bot.Players.findOne({ where: { player_id: choice2 }})) return message.editReply("One of the user provided is not a player.")
+        if(!await bot.Players.findOne({ where: { player_id: choice1 }}) || await !bot.Players.findOne({ where: { player_id: choice2 }})) return message.editReply("One of the user provided is not a player.")
       } else {
         choice1 = args.get("team1").value
         choice2 = args.get("team2").value
         id = "&"
-        // if(!await bot.Teams.findOne({ where: { team_id: choice1 }}) || await !bot.Teams.findOne({ where: { team_id: choice2 }})) return message.editReply("One of the role provided is not a team.")
+        if(!await bot.Teams.findOne({ where: { team_id: choice1 }}) || await !bot.Teams.findOne({ where: { team_id: choice2 }})) return message.editReply("One of the role provided is not a team.")
       }
 
       choices = draw ? [id+choice1,"DRAW",id+choice2] : [id+choice1,id+choice2]
 
-    } if (choice == "PLAYER") {
-      teams = await bot.Teams.findAll()
+    } if (choice == "PLAYER" || choice == "MVP") {
+      if(choice == "PLAYER") teams = await bot.Teams.findAll()
+      else if(choice == "MVP") teams = [await bot.Teams.findOne({ where: { team_id: args.get("team1").value }}),  await bot.Teams.findOne({ where: { team_id: args.get("team2").value }})]
       players = []
       for(team of teams){
         players.push(await bot.Players.findAll({ where: { player_team: team.dataValues.team_id }}))
       }
       choices = players.flat().map(player => player.dataValues.player_id)
-
-      embed.addFields({ name: "74", value: "ALL PLAYERS"})
-
-    } if (choice == "MVP") {
-      players = []
-
-      for(team of [args.get("team1").value, args.get("team2").value]){
-        players.push(await bot.Players.findAll({ where: { player_team: team }}))
-      }
-
-      choices = players.flat().map(player => player.dataValues.player_id)
-      embed.addFields({ name: choices.length.toString(), value: `PLAYERS from <@&${args.get("team1").value}> and <@&${args.get("team2").value}>.`})
 
     } if (choice == "GROUP") {
 
@@ -197,13 +178,12 @@ module.exports = {
     if(choice != "GROUP"){
       choices.forEach(c => {
         vote = (c == "DRAW") ? "N" : ++count
-        if(choice != "PLAYER") embed.addFields({ name: vote.toString(), value: (c == "DRAW") ? c : `<@${c}>`})
+        embed.addFields({ name: vote.toString(), value: (c == "DRAW") ? c : `<@${c}>`})
         votes.push(vote)
       })
     }
 
-    // if(score) embed.addFields({ name: 'Score', value: `(not mandatory to bet)`})
-    embed.addFields({ name: '\u200B', value: `Votes close at <t:${args.get("epoch").value}:t> (<t:${args.get("epoch").value}:R>).`})
+    embed.addFields({ name: '\u200B', value: `Votes close at <t:${args.get("epoch").value}:f> (<t:${args.get("epoch").value}:R>).`})
 
     const row = new Discord.ActionRowBuilder()
     .addComponents(
@@ -232,7 +212,6 @@ module.exports = {
           ratios: ratios.toString(),
           label: title,
           draw: draw,
-          // score: score,
           channel: args.get("post").value,
           message: "",
           close_date: args.get("epoch").value,
