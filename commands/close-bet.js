@@ -28,7 +28,7 @@ module.exports = {
       require(`../events/.log.js`).run(bot, `[CLOSE-BET] : **${bet.dataValues.label}** with id : **${bet.dataValues.bet_id}**`)
       return message.reply({content: `Done.`, ephemeral: true})
     } else {
-      require(`../events/.log.js`).run(bot, `[LAUNCH-CLOSE-BET-AUTO]`)
+      // require(`../events/.log.js`).run(bot, `[LAUNCH-CLOSE-BET-AUTO]`)
       let epoch = Math.round(new Date().getTime() / 1000)
 
       open_bets = await bot.Bets.findAll({ where: { status: "OPEN" }})
