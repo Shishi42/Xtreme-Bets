@@ -29,8 +29,8 @@ module.exports = {
 
     bet = await bot.Bets.findOne({ where: { bet_id: args.get("id").value }})
 
-    if(!bet) return message.reply("No bet with this ID.")
-    if(bet.dataValues.status == "ENDED") return message.reply("This bet has already ended.")
+    if(!bet) return message.reply({content: "No bet with this ID.", ephemeral: true})
+    if(bet.dataValues.status == "ENDED") return message.reply({content: "This bet has already ended.", ephemeral: true})
 
     await bot.Bets.update({ status: "ENDED", final: args.get("result").value}, { where: { bet_id: args.get("id").value }})
     bet = await bot.Bets.findOne({ where: { bet_id: args.get("id").value }})

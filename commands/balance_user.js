@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 
 module.exports = {
 
-  name: "check_user_balance",
+  name: "balance_user",
   description: "Check user balance",
   permission: Discord.PermissionFlagsBits.Administrator,
   dm: true,

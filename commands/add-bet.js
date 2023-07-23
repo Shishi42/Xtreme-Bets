@@ -7,7 +7,7 @@ module.exports = {
   description: "Add a bet to the pool",
   permission: Discord.PermissionFlagsBits.Administrator,
   dm: true,
-  category: "Admin",
+  category: "Bet",
   options: [
     {
       type: "string",

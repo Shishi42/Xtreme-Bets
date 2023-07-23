@@ -4,9 +4,9 @@ module.exports = {
 
   name: "balance",
   description: "Check your balance",
-  permission: Discord.PermissionFlagsBits.Administrator,
+  permission: null,
   dm: true,
-  category: "Balance",
+  category: "Utility",
 
   async run(bot, message, args) {
 

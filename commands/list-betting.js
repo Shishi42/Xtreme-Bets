@@ -22,7 +22,7 @@ module.exports = {
     await message.reply({content: "Searching..", ephemeral: true})
 
     bet = await bot.Bets.findOne({ where: { bet_id: args.get("id").value}})
-    if(!bet) return message.reply("No bet with this ID.")
+    if(!bet) message.editReply({content: "No bet with this ID.", ephemeral: true})
 
     for(betting of await bot.Bettings.findAll({ where: { bet_id: args.get("id").value}})){
       message.followUp({content: `**${bot.users.cache.get(betting.dataValues.member_id).username}** on **${bet.dataValues.label}** (**${bet.dataValues.bet_id}**) with **${betting.dataValues.vote}** using **${betting.dataValues.value}pts**`, ephemeral: true})

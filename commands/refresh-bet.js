@@ -12,7 +12,7 @@ module.exports = {
       type: "string",
       name: "id",
       description: "Id of the bet to refresh or status",
-      required: true,
+      required: false,
       autocomplete: false,
     },
   ],
@@ -21,7 +21,8 @@ module.exports = {
 
     await message.deferReply({ephemeral: true})
 
-    id = args.get("id").value
+    if(args.get("id")) id = args.get("id").value
+    else id = "ALL"
 
     if(id.toUpperCase() == "ALL" || id.toUpperCase() == "OPEN" || id.toUpperCase() == "CLOSED" || id.toUpperCase() == "ENDED"){
       if(id.toUpperCase() == "ALL") bets = await bot.Bets.findAll()

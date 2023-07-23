@@ -4,7 +4,7 @@ module.exports = {
 
   name: "help",
   description: "Show help menu",
-  permission: Discord.PermissionFlagsBits.Administrator,
+  permission: null,
   dm: true,
   category: "Utility",
   options: [
@@ -22,7 +22,7 @@ module.exports = {
     let command
     if(args.get("command")){
       command = bot.commands.get(args.get("command").value)
-      if(!command) return message.reply("No command with this name")
+      if(!command) return message.reply({content: "No command with this name.", ephemeral: true})
     }
 
     if(!command){
@@ -37,7 +37,7 @@ module.exports = {
       .setTitle("Bot Commands")
       .setThumbnail(bot.user.displayAvatarURL({dynamic: true}))
       .setDescription(`Available Commands: \`${bot.commands.size}\` \nAvailable Categories : \`${categories.length}\``)
-      .setFooter({text: 'a Strikers World Cup 2023 Official Bot', iconURL: 'https://pbs.twimg.com/profile_images/1662212462110810115/M0CLudSr_400x400.jpg'})
+      .setFooter({text: `A IESXWC bot`, iconURL: bot.guilds.cache.get(bot.wc).iconURL()})
       .setTimestamp()
 
       await categories.sort().forEach(async cat => {
@@ -55,8 +55,7 @@ module.exports = {
       .setThumbnail(bot.user.displayAvatarURL({dynamic: true}))
       .setDescription(`Name : \`${command.name}\` \nDescription : \`${command.description}\` \nRequired Permission : \`${typeof command.permission !== "bigint" ? command.permission !== null ? command.permission : "None" : new Discord.PermissionsBitField(command.permission).toArray(false)}\` \nCommand in DM : \`${command.dm ? "Yes" : "No"}\` \nCategory : \`${command.category}\``)
       .setTimestamp()
-      .setFooter({text: 'a Strikers World Cup 2023 Official Bot', iconURL: 'https://pbs.twimg.com/profile_images/1662212462110810115/M0CLudSr_400x400.jpg'})
-
+      .setFooter({text: `A IESXWC bot`, iconURL: bot.guilds.cache.get(bot.wc).iconURL()})
       await message.reply({embeds: [embed]})
     }
   }

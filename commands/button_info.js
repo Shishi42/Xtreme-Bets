@@ -15,7 +15,6 @@ module.exports = {
 
     let embed = new Discord.EmbedBuilder()
     .setColor(bot.color)
-    // .setAuthor({ name: 'Xtreme Bets', iconURL: bot.user.displayAvatarURL(), url: 'https://twitter.com/IESXWC'})
     .setThumbnail(bot.user.displayAvatarURL())
     .setTitle(`Xtreme Bets Presentation Menu`)
     .setDescription(`Here is a presention on what is Xtreme Bets.`)
