@@ -224,15 +224,17 @@ module.exports = {
           desc = title+"\n\n\n\n- **SPANISH STREAM 🇪🇸**\n - https://www.twitch.tv/tecaotaku\n - https://www.twitch.tv/adrisylver23\n - https://www.twitch.tv/punchodd\n\n- **FRENCH STREAM 🇫🇷**\n - https://www.twitch.tv/phase5_\n\n- **GERMAN STREAM 🇩🇪** \n - https://www.twitch.tv/nd_haku\n\n- **ITALIAN STREAM 🇮🇹**\n - https://www.twitch.tv/ninokiii\n\n- **BRAZILIAN STREAM 🇧🇷**\n - https://www.twitch.tv/lemonadeeventosbr\n\n- **ENGLISH STREAM 🇬🇧**\n - https://www.youtube.com/@TaleOfTheToaster\n\n- **POLISH STREAM 🇵🇱**\n - https://www.youtube.com/@igoxteam8935\n"
           time = parseInt(args.get("epoch").value+"000")
 
-          message.guild.scheduledEvents.create({
+          event = await message.guild.scheduledEvents.create({
             name: title,
             scheduledStartTime: new Date(time),
             scheduledEndTime: new Date(time+5400000),
             privacyLevel: 2,
             entityType: 3,
+            image: image ? image : null,
             description: desc,
             entityMetadata: {location: "https://twitter.com/IESXWC"},
           })
+          bot.channels.cache.get(bot.announcement).send(event.url)
         }
 
         post = await require(`../events/.postEmbed.js`).run(bot, bet, args.get("post").value)

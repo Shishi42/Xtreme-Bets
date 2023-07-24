@@ -21,7 +21,7 @@ module.exports = {
     .addFields(
       {name: "Enter the game", value: "Click **Enter** to get your first 100 points."},
       {name: "Checking your current balance", value: "Click **Check Balance** to check your balance."},
-      {name: "Checking your current active bets", value: "Click **Check Active Bets** to check all your active bets."})
+      {name: "Checking your bets history", value: "Click **Check History** to check all your bets."})
     .setTimestamp()
     .setFooter({text: `A IESXWC bot`, iconURL: bot.guilds.cache.get(bot.wc).iconURL()})
 
@@ -36,7 +36,7 @@ module.exports = {
         .setStyle(Discord.ButtonStyle.Primary),
       new Discord.ButtonBuilder()
         .setCustomId('check')
-        .setLabel('Check Active Bets')
+        .setLabel('Check History')
         .setStyle(Discord.ButtonStyle.Primary)
     )
 

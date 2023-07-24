@@ -12,10 +12,14 @@ bot.color = config.bot_color
 bot.owner = config.bot_owner
 bot.wc = config.wc_server
 bot.log = config.log_channel
+bot.announcement = config.event_channel
 
 commands_loader(bot)
 events_loader(bot)
 
 bot.login(config.token)
 
-new cron.CronJob('00 01 * * * *', () => { require(`./commands/close-bet.js`).run(bot, null, null)}).start()
+new cron.CronJob('00 01 * * * *', () => {
+  require(`./commands/close-bet.js`).run(bot, null, null)
+  require(`./events/.removeEvents.js`).run(bot)
+}).start()
