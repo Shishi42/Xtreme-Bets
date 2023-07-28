@@ -1,2 +1,2 @@
-# Inazuma-Bet
-Discord BOT to bet on Inazuma Eleven matches.
+# Xtreme-Bets
+Discord BOT to bet on (Xtreme) Inazuma Eleven matches.
