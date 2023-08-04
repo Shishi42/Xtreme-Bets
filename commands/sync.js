@@ -46,7 +46,7 @@ module.exports = {
 
     captain = "1012657654289661963"
 
-    ids2.forEach(id => {
+    ids3.forEach(id => {
       bot.Teams.create({team_id: bot.guilds.cache.get(bot.wc).roles.cache.get(id[0]).id, team_name: bot.guilds.cache.get(bot.wc).roles.cache.get(id[0]).name, team_alias: bot.guilds.cache.get(bot.wc).roles.cache.get(id[0]).name.replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g,'').trim(), team_group: id[1]})
       const Role = bot.guilds.cache.get(bot.wc).roles.cache.find(role => role.id == id[0])
       let team_players = bot.guilds.cache.get(bot.wc).members.cache.filter(member => member.roles.cache.find(role => role == Role)).map(member => member)
